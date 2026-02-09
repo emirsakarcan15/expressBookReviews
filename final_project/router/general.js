@@ -32,9 +32,9 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/', function (req, res) { 
+public_users.get('/', async function (req, res) { 
   try {
-    const bookList = books;
+    const bookList = await books;
     return res.status(300).json({books: bookList});
   } catch (error) {
     return res.status(500).json({message: "Internal Server Error"});
@@ -42,15 +42,21 @@ public_users.get('/', function (req, res) {
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn/:isbn',function (req, res) {
-  let isbn = req.params.isbn
-  const book = books[isbn]
+public_users.get('/isbn/:isbn',async function (req, res) {
+  try {
+    const isbn = req.params.isbn;
+    const bookList = await books
 
-  if(!book) {
-    return res.status(404).json({message: "Book not found"});
+    const book = bookList[isbn];
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    return res.status(300).json({book: book});
+  
+  } catch (error) {
+    return res.status(500).json({message: "Internal Server Error"});
   }
-
-  return res.status(300).json({book: book});
  });
   
 // Get book details based on author
