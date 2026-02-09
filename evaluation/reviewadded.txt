@@ -1,0 +1,5 @@
+curl -X PUT http://localhost:5000/customer/auth/review/2 \
+  -H "Content-Type: application/json" \
+  -H "Cookie: connect.sid=s%3Aitx6aoRaMp4tu3FciScX4RDlCOJCvna8.%2F9ayrw31WzSqf98%2F0Sok8RMfLwX3of%2Ba9TQbyrtiH1I" \
+  -d "{\"review\":\"Its a spectacular book\"}"
+{"message":"Review added successfully"}
